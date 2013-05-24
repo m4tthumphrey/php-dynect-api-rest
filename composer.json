@@ -1,0 +1,22 @@
+{
+	"name": "m4tthumphrey/php-dynect-api-rest",
+	"type": "library",
+	"description": "REST API client for Dynect",
+	"homepage": "https://github.com/m4tthumphrey/php-dynect-api-rest",
+	"keywords": ["dynect", "api", "dns"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Matt Humphrey",
+			"homepage": "http://m4tt.io"
+		}
+	],
+	"require": {
+		"php":                ">=5.3.2",
+		"ext-curl":           "*",
+		"kriswallsmith/buzz": ">=0.7"
+	},
+	"autoload": {
+		"psr-0": { "Dynect\\": "lib/" }
+	}
+}
