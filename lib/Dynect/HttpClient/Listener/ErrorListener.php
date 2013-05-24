@@ -1,27 +1,18 @@
 <?php
 
-namespace Gitlab\HttpClient\Listener;
+namespace Dynect\HttpClient\Listener;
 
 use Buzz\Listener\ListenerInterface;
 use Buzz\Message\MessageInterface;
 use Buzz\Message\RequestInterface;
-use Gitlab\Exception\ErrorException;
-use Gitlab\Exception\RuntimeException;
-use Gitlab\Exception\ValidationFailedException;
+use Dynect\Exception\ErrorException;
+use Dynect\Exception\RuntimeException;
+use Dynect\Exception\ValidationFailedException;
 
-/**
- * @author Joseph Bielawski <stloyd@gmail.com>
- */
 class ErrorListener implements ListenerInterface
 {
-    /**
-     * @var array
-     */
     private $options;
 
-    /**
-     * @param array $options
-     */
     public function __construct(array $options)
     {
         $this->options = $options;

@@ -18,7 +18,7 @@ class Client
     protected $httpClient;
     protected $options = array();
 
-    public function __construct($options = array(), ClientInterface $httpClient = nulll)
+    public function __construct($options = array(), ClientInterface $httpClient = null)
     {
         if (null === $httpClient) {
             $httpClient = new Curl();
