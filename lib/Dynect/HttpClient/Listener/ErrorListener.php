@@ -30,18 +30,12 @@ class ErrorListener implements ListenerInterface
      */
     public function postSend(RequestInterface $request, MessageInterface $response)
     {
-        /** @var $response \Gitlab\HttpClient\Message\Response */
+        /** @var $response \Dynect\HttpClient\Message\Response */
         if ($response->isClientError() || $response->isServerError()) {
             $content = $response->getContent();
-            if (is_array($content) && isset($content['message'])) {
-                if (400 == $response->getStatusCode()) {
-                    throw new ErrorException($content['message'], 400);
-                } elseif (422 == $response->getStatusCode() && isset($content['errors'])) {
-                    debug ($content);
-                }
-            }
+            $message = array_shift($content['msgs']);
 
-            throw new RuntimeException(isset($content['message']) ? $content['message'] : $content, $response->getStatusCode());
+            throw new RuntimeException($message['INFO'], $response->getStatusCode());
         }
     }
 }

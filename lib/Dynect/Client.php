@@ -33,7 +33,15 @@ class Client
 
     public function api($api)
     {
+        $api = strtolower($api);
 
+        switch ($api) {
+            case 'session':
+            case 'sessions':
+                return new Api\Session($this);
+            default:
+                throw new InvalidArgumentException('Invalid API path');
+        }
     }
 
     /**

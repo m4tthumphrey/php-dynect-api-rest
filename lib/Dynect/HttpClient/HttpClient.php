@@ -65,6 +65,11 @@ class HttpClient implements HttpClientInterface
         $this->headers = array_merge($this->headers, $headers);
     }
 
+    public function addHeader($header)
+    {
+        $this->headers[] = $header;
+    }
+
     public function clearHeaders()
     {
         $this->headers = array();
@@ -154,9 +159,11 @@ class HttpClient implements HttpClientInterface
     private function createRequest($httpMethod, $url)
     {
         $contentType = $this->options['content_type'];
-        $this->setHeaders(sprintf('Content-type: %s', $this->contentTypes[$contentType]));
+        $this->addHeader(sprintf('Content-type: %s', $this->contentTypes[$contentType]));
 
-        $request = new Request($httpMethod);
+        $class = 'Dynect\HttpClient\Message\Request\\'.ucfirst($this->options['content_type']);
+
+        $request = new $class($httpMethod);
         $request->setHeaders($this->headers);
         $request->fromUrl($url);
 
@@ -165,7 +172,7 @@ class HttpClient implements HttpClientInterface
 
     private function createResponse()
     {
-        $class = 'Response\\'.ucfirst($this->options['content_type']);
+        $class = 'Dynect\HttpClient\Message\Response\\'.ucfirst($this->options['content_type']);
 
         return new $class();
     }

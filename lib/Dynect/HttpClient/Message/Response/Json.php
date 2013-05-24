@@ -18,6 +18,10 @@ class Json extends Response
             return $response;
         }
 
+        if ($content['status'] == 'success') {
+            return $content['data'];
+        }
+
         return $content;
     }
 }
