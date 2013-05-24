@@ -12,4 +12,19 @@ class Session extends AbstractApi implements ApiInterface
             'password' => $password
         ));
     }
+
+    public function verify()
+    {
+        return $this->get('Session');
+    }
+
+    public function keepAlive()
+    {
+        return $this->put('Session');
+    }
+
+    public function logout()
+    {
+        return $this->delete('Session');
+    }
 }
