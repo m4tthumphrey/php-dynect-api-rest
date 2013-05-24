@@ -2,74 +2,110 @@
 
 namespace Dynect;
 
-use Buzz\Browser;
+use Buzz\Client\Curl;
+use Buzz\Client\ClientInterface;
+
+use Dynect\Api\ApiInterface;
+use Dynect\Exception\InvalidArgumentException;
+use Dynect\HttpClient\HttpClient;
+use Dynect\HttpClient\HttpClientInterface;
+use Dynect\HttpClient\Listener\AuthListener;
 
 class Client
 {
-    const API_URL = 'https://api2.dynect.net/REST/';
+    const BASE_URL = 'https://api2.dynect.net/REST/';
 
-    protected $customer_name;
-    protected $user_name;
-    protected $password;
-    protected $token;
+    protected $httpClient;
+    protected $options = array();
 
-    protected $headers;
-    protected $browser;
-
-    public function __construct($customer_name, $user_name, $password, Browser $browser = null)
+    public function __construct($options = array(), ClientInterface $httpClient = nulll)
     {
-        $this->customer_name = $customer_name;
-        $this->user_name = $user_name;
-        $this->password = $password;
-
-        if (is_null($browser)) {
-            $browser = new Browser();
+        if (null === $httpClient) {
+            $httpClient = new Curl();
         }
 
-        $this->browser = $browser;
-    }
-
-    public function checkSession()
-    {
-        $response = $this->get('Session');
-
-        print_r($response);
-
-        return false;
-    }
-
-    public function login()
-    {
-        if ($this->checkSession()) {
-            return true;
+        foreach ($options as $k => $v) {
+            $this->setOption($k, $v);
         }
 
-        $response = $this->post('Session', array(
-            'customer_name' => $this->customer_name,
-            'user_name' => $this->user_name,
-            'password' => $this->password
-        ));
-
-        print_r($response);
+        $this->httpClient = new HttpClient(self::BASE_URL, $this->options, $httpClient);
     }
 
-    public function get($path, $parameters = array(), $headers = array())
+    public function api($api)
     {
-        if (!empty($parameters)) {
-            $path .= (preg_match('/?/', $path)) ? '?' : '&';
-            $path .= http_build_query($parameters);
+
+    }
+
+    /**
+     * @return HttpClient
+     */
+    public function getHttpClient()
+    {
+        return $this->httpClient;
+    }
+
+    /**
+     * @param HttpClientInterface $httpClient
+     */
+    public function setHttpClient(HttpClientInterface $httpClient)
+    {
+        $this->httpClient = $httpClient;
+
+        return $this;
+    }
+
+    /**
+     * Clears used headers
+     */
+    public function clearHeaders()
+    {
+        $this->httpClient->clearHeaders();
+
+        return $this;
+    }
+
+    /**
+     * @param array $headers
+     */
+    public function setHeaders(array $headers)
+    {
+        $this->httpClient->setHeaders($headers);
+
+        return $this;
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return mixed
+     *
+     * @throws InvalidArgumentException
+     */
+    public function getOption($name)
+    {
+        if (!array_key_exists($name, $this->options)) {
+            throw new InvalidArgumentException(sprintf('Undefined option called: "%s"', $name));
         }
 
-        $headers = array_merge($this->headers, $headers);
-
-        return $this->browser->get(self::API_URL.$path, $headers);
+        return $this->options[$name];
     }
 
-    public function post($path, $parameters = array(), $headers = array())
-    {
-        $content = json_encode($parameters);
-        $headers = array_merge($this->headers, $headers);
 
-        return $this->browser->post(self::API_URL.$path, $headers, $content);
+    /**
+     * @param string $name
+     * @param mixed  $value
+     *
+     * @throws InvalidArgumentException
+     * @throws InvalidArgumentException
+     */
+    public function setOption($name, $value)
+    {
+        if (!array_key_exists($name, $this->options)) {
+            throw new InvalidArgumentException(sprintf('Undefined option called: "%s"', $name));
+        }
+
+        $this->options[$name] = $value;
+
+        return $this;
     }
 }
