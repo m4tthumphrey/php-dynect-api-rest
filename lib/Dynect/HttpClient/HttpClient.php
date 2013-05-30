@@ -11,6 +11,7 @@ use Dynect\Exception\ErrorException;
 use Dynect\Exception\InvalidArgumentException;
 use Dynect\Exception\RuntimeException;
 use Dynect\HttpClient\Listener\ErrorListener;
+use Dynect\HttpClient\Listener\AuthListener;
 use Dynect\HttpClient\Message\Request;
 use Dynect\HttpClient\Message\Response;
 
@@ -47,6 +48,11 @@ class HttpClient implements HttpClientInterface
 
         $this->addListener(new ErrorListener($this->options));
         $this->clearHeaders();
+    }
+
+    public function authenticate($token)
+    {
+        $this->addListener(new AuthListener($token));
     }
 
     /**

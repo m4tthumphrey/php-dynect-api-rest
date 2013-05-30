@@ -31,6 +31,11 @@ class Client
         $this->httpClient = new HttpClient(self::BASE_URL, $this->options, $httpClient);
     }
 
+    public function authenticate($token)
+    {
+        $this->getHttpClient()->authenticate($token);
+    }
+
     public function api($api)
     {
         $api = strtolower($api);
