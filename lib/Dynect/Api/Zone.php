@@ -27,7 +27,7 @@ class Zone extends AbstractApi implements ApiInterface
             $params['serial_style'] = $serial_style;
         }
 
-        return $this->post('Zone/'.urlencode($zone));
+        return $this->post('Zone/'.urlencode($zone), $params);
     }
 
     public function freeze($zone)
