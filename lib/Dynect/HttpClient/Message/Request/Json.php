@@ -8,9 +8,11 @@ class Json extends Request
 {
     public function setContent($content)
     {
-        parse_str($content, $array);
-        $json = json_encode($array);
+        if ($content) {
+            parse_str($content, $array);
+            $json = json_encode($array);
 
-        parent::setContent($json);
+            parent::setContent($json);
+        }
     }
 }

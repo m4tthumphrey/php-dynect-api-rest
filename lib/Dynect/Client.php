@@ -44,6 +44,9 @@ class Client
             case 'session':
             case 'sessions':
                 return new Api\Session($this);
+            case 'zone':
+            case 'zones':
+                return new Api\Zone($this);
             default:
                 throw new InvalidArgumentException('Invalid API path');
         }
