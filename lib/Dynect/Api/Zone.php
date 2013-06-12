@@ -32,21 +32,21 @@ class Zone extends AbstractApi implements ApiInterface
 
     public function freeze($zone)
     {
-        $this->put('Zone/'.urlencode($zone), array(
+        return $this->put('Zone/'.urlencode($zone), array(
             'freeze' => true
         ));
     }
 
     public function thaw($zone)
     {
-        $this->put('Zone/'.urlencode($zone), array(
+        return $this->put('Zone/'.urlencode($zone), array(
             'thaw' => true
         ));
     }
 
     public function publish($zone)
     {
-        $this->put('Zone/'.urlencode($zone), array(
+        return $this->put('Zone/'.urlencode($zone), array(
             'publish' => true
         ));
     }

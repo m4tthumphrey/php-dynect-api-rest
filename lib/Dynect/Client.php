@@ -47,6 +47,9 @@ class Client
             case 'zone':
             case 'zones':
                 return new Api\Zone($this);
+            case 'record':
+            case 'records':
+                return new Api\Record($this);
             default:
                 throw new InvalidArgumentException('Invalid API path');
         }
