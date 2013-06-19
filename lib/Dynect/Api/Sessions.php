@@ -27,4 +27,11 @@ class Sessions extends AbstractApi implements ApiInterface
     {
         return $this->delete('Session');
     }
+
+    public function changePassword($password)
+    {
+        return $this->put('Password', array(
+            'password' => $password
+        ));
+    }
 }

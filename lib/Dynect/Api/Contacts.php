@@ -21,30 +21,30 @@ class Contacts extends AbstractApi implements ApiInterface
         return $this->delete('Contact/'.urlencode($nickname));
     }
 
-    public function create($nickname, array $data)
+    public function create($nickname, array $params)
     {
-        if (!isset($data['email'])) {
+        if (!isset($params['email'])) {
             throw new InvalidArgumentException('Contact email address must be supplied');
         }
 
-        if (!isset($data['first_name'])) {
+        if (!isset($params['first_name'])) {
             throw new InvalidArgumentException('Contact first name must be supplied');
         }
 
-        if (!isset($data['last_name'])) {
+        if (!isset($params['last_name'])) {
             throw new InvalidArgumentException('Contact last name must be supplied');
         }
 
-        if (!isset($data['organization'])) {
+        if (!isset($params['organization'])) {
             throw new InvalidArgumentException('Contact organization must be supplied');
         }
 
-        return $this->post('Contact/'.urlencode($nickname), $data);
+        return $this->post('Contact/'.urlencode($nickname), $params);
     }
 
-    public function update($nickname, array $data)
+    public function update($nickname, array $params)
     {
-        return $this->put('Contact/'.urlencode($nickname), $data);
+        return $this->put('Contact/'.urlencode($nickname), $params);
     }
 
 }
