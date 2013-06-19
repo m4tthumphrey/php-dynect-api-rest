@@ -2,7 +2,7 @@
 
 namespace Dynect\Api;
 
-class Session extends AbstractApi implements ApiInterface
+class Sessions extends AbstractApi implements ApiInterface
 {
     public function login($customer_name, $user_name, $password)
     {

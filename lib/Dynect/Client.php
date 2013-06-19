@@ -43,13 +43,13 @@ class Client
         switch ($api) {
             case 'session':
             case 'sessions':
-                return new Api\Session($this);
+                return new Api\Sessions($this);
             case 'zone':
             case 'zones':
-                return new Api\Zone($this);
+                return new Api\Zones($this);
             case 'record':
             case 'records':
-                return new Api\Record($this);
+                return new Api\Records($this);
             case 'contact':
             case 'contacts':
                 return new Api\Contacts($this);

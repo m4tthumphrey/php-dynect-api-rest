@@ -4,7 +4,7 @@ namespace Dynect\Api;
 
 use Dynect\Exception\InvalidArgumentException;
 
-class Record extends AbstractApi implements ApiInterface
+class Records extends AbstractApi implements ApiInterface
 {
     private function getRecordType($type)
     {

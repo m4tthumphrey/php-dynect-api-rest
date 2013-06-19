@@ -4,7 +4,7 @@ namespace Dynect\Api;
 
 use Dynect\Exception\InvalidArgumentException;
 
-class Zone extends AbstractApi implements ApiInterface
+class Zones extends AbstractApi implements ApiInterface
 {
     public function all()
     {
