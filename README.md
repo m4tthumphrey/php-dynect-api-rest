@@ -46,3 +46,21 @@ try {
     echo '<h1>Error!</h1><p>'.$e->getMessage().'</p>';
 }
 ```
+Modal Usage
+-----------
+
+```php
+$client = new Dynect\Client();
+$auth = $client->api('session')->login('company_name', 'username', 'password');
+
+$client->authenticate($auth['token']);
+
+$zone = new Dynect\Model\Zone($client, 'domain.com');
+$zone->addRecord('A', 'example', array(
+		'address' => '192.168.1.1'
+));
+
+$zone->publish();
+
+// adds a new A record, 'example', to the zone 'domain.com', resulting in a new record of 'example.domain.com' pointing to 192.168.1.1
+```
