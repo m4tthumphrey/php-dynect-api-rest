@@ -50,6 +50,9 @@ class Client
             case 'record':
             case 'records':
                 return new Api\Record($this);
+            case 'contact':
+            case 'contacts':
+                return new Api\Contacts($this);
             default:
                 throw new InvalidArgumentException('Invalid API path');
         }
