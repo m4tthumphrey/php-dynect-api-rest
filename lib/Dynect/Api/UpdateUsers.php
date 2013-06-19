@@ -2,8 +2,6 @@
 
 namespace Dynect\Api;
 
-use Dynect\Exception\InvalidArgumentException;
-
 class UpdateUsers extends AbstractApi implements ApiInterface
 {
     public function all()
