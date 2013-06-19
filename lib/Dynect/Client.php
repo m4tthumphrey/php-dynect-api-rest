@@ -56,6 +56,9 @@ class Client
             case 'user':
             case 'users':
                 return new Api\Users($this);
+            case 'update_user':
+            case 'update_users':
+                return new Api\UpdateUsers($this);
             default:
                 throw new InvalidArgumentException('Invalid API path');
         }
