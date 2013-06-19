@@ -14,9 +14,9 @@ class Zone extends AbstractModel
         $this->zone = $zone;
     }
 
-    public function addRecord($type, $fqdn, array $data, $ttl = 0)
+    public function addRecord($type, $fqdn, array $rdata, $ttl = 0)
     {
-        return $this->api('record')->create($type, $this->zone, $fqdn, $data, $ttl);
+        return $this->api('record')->create($type, $this->zone, $fqdn, $rdata, $ttl);
     }
 
     public function publish()
