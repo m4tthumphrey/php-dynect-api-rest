@@ -2,7 +2,7 @@
 
 namespace Dynect\Api;
 
-use Dynect\Exception\InvalidArgumentException;
+use Dynect\Exception\MissingArgumentException;
 
 class Contacts extends AbstractApi implements ApiInterface
 {
@@ -24,19 +24,19 @@ class Contacts extends AbstractApi implements ApiInterface
     public function create($nickname, array $params)
     {
         if (!isset($params['email'])) {
-            throw new InvalidArgumentException('Contact email address must be supplied');
+            throw new MissingArgumentException('Contact email address must be supplied');
         }
 
         if (!isset($params['first_name'])) {
-            throw new InvalidArgumentException('Contact first name must be supplied');
+            throw new MissingArgumentException('Contact first name must be supplied');
         }
 
         if (!isset($params['last_name'])) {
-            throw new InvalidArgumentException('Contact last name must be supplied');
+            throw new MissingArgumentException('Contact last name must be supplied');
         }
 
         if (!isset($params['organization'])) {
-            throw new InvalidArgumentException('Contact organization must be supplied');
+            throw new MissingArgumentException('Contact organization must be supplied');
         }
 
         return $this->post('Contact/'.urlencode($nickname), $params);
