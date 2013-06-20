@@ -5,7 +5,7 @@ namespace Dynect;
 use Buzz\Client\Curl;
 use Buzz\Client\ClientInterface;
 
-use Dynect\Api\ApiInterface;
+use Dynect\Exception\RuntimeException;
 use Dynect\Exception\InvalidArgumentException;
 use Dynect\HttpClient\HttpClient;
 use Dynect\HttpClient\HttpClientInterface;
@@ -59,8 +59,14 @@ class Client
             case 'update_user':
             case 'update_users':
                 return new Api\UpdateUsers($this);
+            case 'tsig_key':
+            case 'tsig_keys':
+                return new Api\TSIGKeys($this);
+            case 'misc':
+            case 'miscellaneous':
+                return new Api\Misc($this);
             default:
-                throw new InvalidArgumentException('Invalid API path');
+                throw new RuntimeException('Invalid API path');
         }
     }
 
