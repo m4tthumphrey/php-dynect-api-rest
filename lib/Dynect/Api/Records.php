@@ -2,7 +2,7 @@
 
 namespace Dynect\Api;
 
-use Dynect\Exception\MissingArgumentException;
+use Dynect\Exception\ValidationFailedException;
 
 class Records extends AbstractApi implements ApiInterface
 {
@@ -57,7 +57,7 @@ class Records extends AbstractApi implements ApiInterface
     {
         foreach ($records as $record) {
             if (!isset($record['rdata'])) {
-                throw new MissingArgumentException('Missing rdata');
+                throw new ValidationFailedException('Missing rdata');
             }
         }
 

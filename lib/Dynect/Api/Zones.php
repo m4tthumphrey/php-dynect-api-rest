@@ -2,7 +2,7 @@
 
 namespace Dynect\Api;
 
-use Dynect\Exception\MissingArgumentException;
+use Dynect\Exception\ValidationFailedException;
 
 class Zones extends AbstractApi implements ApiInterface
 {
@@ -106,7 +106,7 @@ class Zones extends AbstractApi implements ApiInterface
     public function updateSecondary($zone, array $params)
     {
         if (isset($params['masters']) and !is_array($params['masters'])) {
-            throw new MissingArgumentException('`masters` parameter must be an array');
+            throw new ValidationFailedException('`masters` parameter must be an array');
         }
 
         return $this->put('Secondary/'.urlencode($zone), $params);
