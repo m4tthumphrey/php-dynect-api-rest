@@ -128,16 +128,9 @@ class Client
     /**
      * @param string $name
      * @param mixed  $value
-     *
-     * @throws InvalidArgumentException
-     * @throws InvalidArgumentException
      */
     public function setOption($name, $value)
     {
-        if (!array_key_exists($name, $this->options)) {
-            throw new InvalidArgumentException(sprintf('Undefined option called: "%s"', $name));
-        }
-
         $this->options[$name] = $value;
 
         return $this;
