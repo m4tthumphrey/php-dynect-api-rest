@@ -126,4 +126,50 @@ class Users extends AbstractApi implements ApiInterface
             'group' => $groups
         ));
     }
+
+    public function addPermission($username, $permission)
+    {
+        return $this->post('UserPermissionEntry/'.urlencode($username).'/'.urlencode($permission));
+    }
+
+    public function removePermission($username, $permission)
+    {
+        return $this->delete('UserPermissionEntry/'.urlencode($username).'/'.urlencode($permission));
+    }
+
+    public function updatePermissions($username, array $permissions)
+    {
+        return $this->put('UserPermissionEntry/'.urlencode($username), array(
+            'permission' => $permissions
+        ));
+    }
+
+    public function addZone($username, $zone, $recurse = true)
+    {
+        return $this->post('UserZoneEntry/'.urlencode($username).'/'.urlencode($zone), array(
+            'recurse' => $recurse ? self::OPTION_YES : self::OPTION_NO
+        ));
+    }
+
+    public function removeZone($username, $zone, $recurse = true)
+    {
+        return $this->delete('UserZoneEntry/'.urlencode($username).'/'.urlencode($zone), array(
+            'recurse' => $recurse ? self::OPTION_YES : self::OPTION_NO
+        ));
+    }
+
+    public function updateZone($username, array $zones, $validate = true)
+    {
+        if ($validate) {
+            foreach ($zones as $zone) {
+                if (!isset($zone['zone_name'])) {
+                    throw new MissingArgumentException('Zone name is missing');
+                }
+            }
+        }
+
+        return $this->put('UserZoneEntry/'.urlencode($username), array(
+            'zone' => $zones
+        ));
+    }
 }

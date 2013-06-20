@@ -6,6 +6,9 @@ use Dynect\Client;
 
 abstract class AbstractApi implements ApiInterface
 {
+    const OPTION_YES = 'Y';
+    const OPTION_NO = 'N';
+
     protected $client;
 
     public function __construct(Client $client)
