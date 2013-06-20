@@ -2,7 +2,7 @@
 
 namespace Dynect\Api;
 
-use Dynect\Exception\MissingArgumentException;
+use Dynect\Exception\ValidationFailedException;
 
 class Groups extends AbstractApi implements ApiInterface
 {
@@ -19,13 +19,13 @@ class Groups extends AbstractApi implements ApiInterface
     public function create($name, array $params, $validate = true)
     {
         if (!isset($params['description'])) {
-            throw new MissingArgumentException('Group description is required');
+            throw new ValidationFailedException('Group description is required');
         }
 
         if ($validate) {
             foreach ($params['zone'] as $zone) {
                 if (!isset($zone['zone_name'])) {
-                    throw new MissingArgumentException('Zone name is missing');
+                    throw new ValidationFailedException('Zone name is missing');
                 }
             }
         }
@@ -38,7 +38,7 @@ class Groups extends AbstractApi implements ApiInterface
         if ($validate) {
             foreach ($params['zone'] as $zone) {
                 if (!isset($zone['zone_name'])) {
-                    throw new MissingArgumentException('Zone name is missing');
+                    throw new ValidationFailedException('Zone name is missing');
                 }
             }
         }
@@ -114,7 +114,7 @@ class Groups extends AbstractApi implements ApiInterface
         if ($validate) {
             foreach ($zones as $zone) {
                 if (!isset($zone['zone_name'])) {
-                    throw new MissingArgumentException('Zone name is missing');
+                    throw new ValidationFailedException('Zone name is missing');
                 }
             }
         }

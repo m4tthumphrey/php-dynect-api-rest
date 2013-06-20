@@ -2,7 +2,7 @@
 
 namespace Dynect\Api;
 
-use Dynect\Exception\MissingArgumentException;
+use Dynect\Exception\ValidationFailedException;
 
 class Users extends AbstractApi implements ApiInterface
 {
@@ -19,31 +19,31 @@ class Users extends AbstractApi implements ApiInterface
     public function create($username, array $params)
     {
         if (!isset($params['email'])) {
-            throw new MissingArgumentException('User email address must be supplied');
+            throw new ValidationFailedException('User email address must be supplied');
         }
 
         if (!isset($params['first_name'])) {
-            throw new MissingArgumentException('User first name must be supplied');
+            throw new ValidationFailedException('User first name must be supplied');
         }
 
         if (!isset($params['last_name'])) {
-            throw new MissingArgumentException('User last name must be supplied');
+            throw new ValidationFailedException('User last name must be supplied');
         }
 
         if (!isset($params['nickname'])) {
-            throw new MissingArgumentException('User nickname must be supplied');
+            throw new ValidationFailedException('User nickname must be supplied');
         }
 
         if (!isset($params['organization'])) {
-            throw new MissingArgumentException('Contact organization must be supplied');
+            throw new ValidationFailedException('Contact organization must be supplied');
         }
 
         if (!isset($params['password'])) {
-            throw new MissingArgumentException('Contact password must be supplied');
+            throw new ValidationFailedException('Contact password must be supplied');
         }
 
         if (!isset($params['phone'])) {
-            throw new MissingArgumentException('Contact phone must be supplied');
+            throw new ValidationFailedException('Contact phone must be supplied');
         }
 
         return $this->post('User/'.urlencode($username), $params);
@@ -64,7 +64,7 @@ class Users extends AbstractApi implements ApiInterface
         if ($validate) {
             foreach ($zones as $zone) {
                 if (!isset($zone['zone_name'])) {
-                    throw new MissingArgumentException('Zone name is missing');
+                    throw new ValidationFailedException('Zone name is missing');
                 }
             }
         }
@@ -79,7 +79,7 @@ class Users extends AbstractApi implements ApiInterface
         if ($validate) {
             foreach ($zones as $zone) {
                 if (!isset($zone['zone_name'])) {
-                    throw new MissingArgumentException('Zone name is missing');
+                    throw new ValidationFailedException('Zone name is missing');
                 }
             }
         }
@@ -94,12 +94,12 @@ class Users extends AbstractApi implements ApiInterface
         if ($validate) {
             foreach ($permissions as $permission) {
                 if (!isset($permission['name'])) {
-                    throw new MissingArgumentException('Permission name is missing');
+                    throw new ValidationFailedException('Permission name is missing');
                 }
 
                 foreach ($permission['zone'] as $zone) {
                     if (!isset($zone['zone_name'])) {
-                        throw new MissingArgumentException('Zone name is missing');
+                        throw new ValidationFailedException('Zone name is missing');
                     }
                 }
             }
@@ -163,7 +163,7 @@ class Users extends AbstractApi implements ApiInterface
         if ($validate) {
             foreach ($zones as $zone) {
                 if (!isset($zone['zone_name'])) {
-                    throw new MissingArgumentException('Zone name is missing');
+                    throw new ValidationFailedException('Zone name is missing');
                 }
             }
         }
