@@ -65,6 +65,9 @@ class Client
             case 'job':
             case 'jobs':
                 return new Api\Jobs($this);
+            case 'group':
+            case 'groups':
+                return new Api\Groups($this);
             default:
                 throw new RuntimeException('Invalid API path');
         }
