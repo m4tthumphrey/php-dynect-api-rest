@@ -62,8 +62,8 @@ class Client
             case 'tsig_key':
             case 'tsig_keys':
                 return new Api\TSIGKeys($this);
-            case 'misc':
-            case 'miscellaneous':
+            case 'job':
+            case 'jobs':
                 return new Api\Misc($this);
             default:
                 throw new RuntimeException('Invalid API path');
