@@ -109,4 +109,21 @@ class Users extends AbstractApi implements ApiInterface
             'forbid' => $permissions
         ));
     }
+
+    public function addToGroup($username, $group)
+    {
+        return $this->post('UserGroupEntry/'.urlencode($username).'/'.urlencode($group));
+    }
+
+    public function removeFromGroup($username, $group)
+    {
+        return $this->delete('UserGroupEntry/'.urlencode($username).'/'.urlencode($group));
+    }
+
+    public function updateGroups($username, array $groups)
+    {
+        return $this->put('UserGroupEntry/'.urlencode($username), array(
+            'group' => $groups
+        ));
+    }
 }
