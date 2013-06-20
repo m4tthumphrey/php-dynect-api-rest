@@ -58,4 +58,55 @@ class Users extends AbstractApi implements ApiInterface
     {
         return $this->delete('User/'.urlencode($username));
     }
+
+    public function forbid($username, $permission, array $zones, $validate = true)
+    {
+        if ($validate) {
+            foreach ($zones as $zone) {
+                if (!isset($zone['zone_name'])) {
+                    throw new MissingArgumentException('Zone name is missing');
+                }
+            }
+        }
+
+        return $this->post('UserForbidEntry/'.urlencode($username).'/'.urlencode($permission), array(
+            'zone' => $zones
+        ));
+    }
+
+    public function removeForbid($username, $permission, array $zones, $validate = true)
+    {
+        if ($validate) {
+            foreach ($zones as $zone) {
+                if (!isset($zone['zone_name'])) {
+                    throw new MissingArgumentException('Zone name is missing');
+                }
+            }
+        }
+
+        return $this->delete('UserForbidEntry/'.urlencode($username).'/'.urlencode($permission), array(
+            'zone' => $zones
+        ));
+    }
+
+    public function replaceForbids($username, array $permissions, $validate = true)
+    {
+        if ($validate) {
+            foreach ($permissions as $permission) {
+                if (!isset($permission['name'])) {
+                    throw new MissingArgumentException('Permission name is missing');
+                }
+
+                foreach ($permission['zone'] as $zone) {
+                    if (!isset($zone['zone_name'])) {
+                        throw new MissingArgumentException('Zone name is missing');
+                    }
+                }
+            }
+        }
+
+        return $this->put('UserForbidEntry/'.urlencode($username), array(
+            'forbid' => $permissions
+        ));
+    }
 }
