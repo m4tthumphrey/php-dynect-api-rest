@@ -3,6 +3,10 @@ php-dynect-api-rest
 
 PHP wrapper for v2 of the Dynect API. This is very much a work in progress, do not use in production.
 
+Foreword
+--------
+I no longer have access to a Dynect account so will be unable to maintain this library until further notice. If anyone wishes to continue please contact me and I can transfer or add you onto the repo.
+
 Installation
 ------------
 Install Composer
